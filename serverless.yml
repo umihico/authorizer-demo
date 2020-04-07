@@ -110,6 +110,17 @@ functions:
 #    environment:
 #      variable2: value2
 
+resources:
+  Resources:
+    GatewayResponse:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.WWW-Authenticate: "'Basic'"
+        ResponseType: UNAUTHORIZED
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+        StatusCode: '401'
 # you can add CloudFormation resource templates here
 #resources:
 #  Resources:

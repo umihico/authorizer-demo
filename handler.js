@@ -1,8 +1,10 @@
 'use strict';
 
 module.exports.auth = (event, context, callback) => {
-    var token = event.headers["Authorization"];
-    if (token == 'password') {
+    let Authorization = event.headers.Authorization;
+    if (!Authorization) return callback('Unauthorized');
+    let [username, password] = (new Buffer(Authorization.split(' ')[1], 'base64')).toString().split(':');
+    if (username === 'admin' && password === 'secret4') {
         callback(null, {
             principalId: 'user',
             policyDocument: {
