@@ -64,6 +64,12 @@ functions:
       - http:
           path: hello
           method: get
+          authorizer:
+            name: auth
+            resultTtlInSeconds: 0
+            type: request
+  auth:
+    handler: handler.auth
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

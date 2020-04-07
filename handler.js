@@ -1,5 +1,24 @@
 'use strict';
 
+module.exports.auth = (event, context, callback) => {
+    var token = event.headers["Authorization"];
+    if (token == 'password') {
+        callback(null, {
+            principalId: 'user',
+            policyDocument: {
+                Version: '2012-10-17',
+                Statement: [{
+                    Action: 'execute-api:Invoke',
+                    Effect: 'Allow',
+                    Resource: "*",
+                }]
+            }
+        });
+    } else {
+        callback('Unauthorized');
+    }
+};
+
 module.exports.hello = async event => {
   return {
     statusCode: 200,
